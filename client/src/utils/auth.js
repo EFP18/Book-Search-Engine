@@ -32,6 +32,7 @@ class AuthService {
     return localStorage.getItem('id_token');
   }
 
+  // login in--> jwt assigns token associated with user and stores it in local storage
   login(idToken) {
     // Saves user token to localStorage
     localStorage.setItem('id_token', idToken);

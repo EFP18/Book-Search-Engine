@@ -8,10 +8,13 @@ const { typeDefs, resolvers } = require('./schemas');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+// declare new apollo server that expects typeDefs and resolvers
+// this is where the 2 files communicate with each other
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware,
+  // this defines user context
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -30,14 +33,16 @@ app.get('/', (req, res) => {
 const startApolloServer = async () => {
   await server.start();
   server.applyMiddleware({ app });
-  
+
   db.once('open', () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-    })
-  })
-  };
-  
+      console.log(
+        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
+      );
+    });
+  });
+};
+
 // Call the async function to start the server
-  startApolloServer();
+startApolloServer();
