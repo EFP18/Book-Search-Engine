@@ -19,7 +19,7 @@ const typeDefs = gql`
   }
 
   type Auth {
-    # KEY-TOKEN(json webtoken), key-userjson data from User
+    # KEY-TOKEN(json webtoken), value-userjson data from User
     token: ID
     user: User
   }
