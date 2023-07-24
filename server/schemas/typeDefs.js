@@ -7,11 +7,13 @@ const typeDefs = gql`
     password: String
     # array of Book types (like a subschema)
     savedBooks: [Book]
+    bookCount: Int
   }
 
   type Book {
     authors: [String]
     description: String
+    # bookId returned from google's book api
     bookId: String
     image: String
     link: String
