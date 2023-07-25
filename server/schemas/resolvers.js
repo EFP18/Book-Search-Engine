@@ -19,10 +19,16 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
+      try {
+        const user = await User.create(args);
+        const token = signToken(user);
+  
+        // this is the user from the typedefs in type Auth 
+        return { token, user };
 
-      return { token, user };
+      } catch (err) {
+        console.log(err);
+      }
     },
     login: async (parent, { password, email }) => {
       const user = await User.findOne({ email });
@@ -69,3 +75,5 @@ const resolvers = {
     },
   },
 };
+
+module.exports = resolvers;
